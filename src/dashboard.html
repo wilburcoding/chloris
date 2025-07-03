@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Chloris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=chat,chevron_right,close,dashboard,directions_car,info,list_alt,map,network_intelligence,receipt_long,view_list,water_drop" />
+  <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=view_list" />-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.12.0/mapbox-gl.js"></script>
+
+</head>
+
+<body>
+  <div id="popup"
+    style="position:fixed;top:0;left:0;height:100vh;width:100vw;z-index:2000;display:none;align-items: center;justify-content: center;background-color: rgba(128, 128, 128, 0.358);">
+    <div
+      style="width:600px;height:350px;background-color:white;border-radius: 10px;display:flex;align-items: center;justify-content: center;flex-direction: column;">
+      <div class="row" style="width:100%;">
+        <div style="width:40%;height:280px;display:flex;align-items: center;justify-content: center;">
+          <img id="pimg"
+            src="https://www.gardenia.net/wp-content/uploads/2023/05/best-siberian-irises-iris-sibirica-for-your-garden-780x520.webp"
+            style="width:150px;height:250px;object-fit: cover;">
+        </div>
+        <div
+          style="width:55%;height:280px;display:flex;align-items: flex-start;flex-direction:column;justify-content: center;padding:5px;"
+          id="pcontent">
+          <h1>Title</h1>
+          <p>
+            Hello<br>
+            Hello<br>
+            Hello<br>
+            Hello<br>
+            Hello<br>
+            Hello<br>
+            Hello<br>
+          </p>
+        </div>
+
+      </div>
+      <button class="button1" id="close" style="font-size:20px;">Close</button>
+    </div>
+  </div>
+  <div id="addform"
+    style="position:fixed;top:0;left:0;height:100vh;width:100vw;z-index:2000;display:none;align-items: center;justify-content: center;background-color: rgba(128, 128, 128, 0.358);">
+    <div
+      style="width:500px;height:350px;background-color:white;border-radius: 10px;display:flex;align-items: center;justify-content: center;flex-direction: column;">
+      <div class="row" style="width:100%;display:flex;align-items: center;justify-content: center;">
+        <div
+          style="width:60%;height:300px;display:flex;align-items: flex-start;flex-direction:column;justify-content: center;padding:5px; "
+          id="pcontent">
+          <h1 style="font-size:30px;">Inventory Change</h1>
+          <p style="font-size:14px;color:gray;margin-top:10px;">TARGET ITEM ID</p>
+          <select id="changeids">
+
+          </select>
+          <p style="font-size:14px;color:gray;margin-top:10px">ACTION TYPE</p>
+          <select id="changetype">
+            <option value="add">Add</option>
+            <option value="remove">Remove</option>
+          </select>
+          <p style="font-size:14px;color:gray;margin-top:10px">QUANTITY CHANGED</p>
+          <input type="number" id="changeq" placeholder="Item Quantity">
+          <button class="button1" id="addformsubmit" style="font-size:13px;margin-top:5px">Submit</button>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div style="width:100%;height:100vh;display:flex;flex-direction: row;align-items: center;justify-content: center;">
+    <!--sidebar-->
+    <div
+      style="min-width:200px;height:100%;background-color:#363c5a;margin:0;padding:20px;display:flex;flex-direction:column;box-sizing: border-box;">
+      <div style="display: flex;flex-direction: row;align-items: center;">
+        <img src="https://i.postimg.cc/8zYKVxSx/icon.png"
+          style="width:30px;height:30px;margin:0;margin-top:10px;margin-right:10px">
+        <h1 style="font-size:30px;margin-top:3vh;color:white;margin-bottom:1vh">Chloris</h1>
+
+      </div>
+      <p style="font-size:15px;margin-top:1vh;color:gray;margin-left:2px" id="refresh">Sync Data</p>
+      <button class="button2 alink" style="margin-top:0" lto="p1">
+        <span class="material-symbols-outlined">
+          dashboard
+        </span>
+        <p>Dashboard</p>
+      </button>
+      <button class="button2 alink" lto="p3">
+        <span class="material-symbols-outlined">
+          view_list
+        </span>
+        <p>Orders</p>
+      </button>
+      <button class="button2 alink" lto="p2">
+        <span class="material-symbols-outlined">
+          list_alt
+        </span>
+        <p>Inventory</p>
+      </button>
+      <button class="button2 alink" lto="p5">
+        <span class="material-symbols-outlined">
+          network_intelligence
+        </span>
+        <p>Planner</p>
+      </button>
+      <button class="button2 alink" lto="p8">
+        <span class="material-symbols-outlined">
+          map
+        </span>
+        <p>Deliveries</p>
+      </button>
+      <button class="button2 alink" lto="p6">
+        <span class="material-symbols-outlined">
+          water_drop
+        </span>
+        <p>Care Assistant</p>
+      </button>
+      <button class="button2 alink" lto="p7">
+        <span class="material-symbols-outlined">
+          chat
+        </span>
+        <p>Client Contact</p>
+      </button>
+      <button class="button2 alink" lto="p4">
+        <span class="material-symbols-outlined">
+          receipt_long
+        </span>
+        <p>Logs</p>
+      </button>
+
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:flex;overflow-y:hidden"
+      id="p1">
+      <div class="row">
+        <div class="box" style="width:60%;height:30vh">
+          <img
+            src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4npmDslH0ddMW9wJxnjuIScezMVsxmo0rIPWZmts0ogLlLDIxmVUdtwefgsVL9vTUIgq5Nme06E7su1-cw-ETPSaFzh5Dg8Ysk2dRO3GSWtRkJdMk4U6cg9f_BzYqu34vhZ8n0xK=s1360-w1360-h1020-rw"
+            style="height:18vh;width:80%;object-fit: cover;">
+          <h1 style="font-size:45px;">All Fresh Floral</h1>
+          <p style="font-size:25px">18 Burnham Avenue, Roslyn Heights, NY 11577</p>
+        </div>
+        <div class="box" style="width:30%;height:30vh;background-color: transparent;padding:0px;">
+          <div class="row" style="padding:0px;">
+            <div class="box"
+              style="width:45%;height:13.31vh;margin-top:0px;display:flex;flex-direction: column;align-items: center;justify-content: center;">
+              <p style="font-size:15px;margin-top:2px;color:gray">Inventory Size</p>
+              <h1 style="font-size:40px" id="invsize">35</h1>
+            </div>
+            <div class="box"
+              style="width:45%;height:13.31vh;margin-top:0px;display:flex;flex-direction: column;align-items: center;justify-content: center;">
+              <p style="font-size:15px;margin-top:2px;color:gray">Active Orders</p>
+              <h1 style="font-size:40px" id="ordercount">35</h1>
+
+            </div>
+          </div>
+          <div class="row" style="padding:0px;">
+            <div class="box"
+              style="width:45%;height:13.31vh;margin-top:0px;display:flex;flex-direction: column;align-items: center;justify-content: center;">
+              <p style="font-size:15px;margin-top:2px;color:gray">Inventory Value</p>
+              <h1 style="font-size:40px" id="invvalue">35</h1>
+            </div>
+            <div class="box"
+              style="width:45%;height:13.31vh;margin-top:0px;display:flex;flex-direction: column;align-items: center;justify-content: center;">
+              <p style="font-size:15px;margin-top:2px;color:gray">Low Stock Items</p>
+              <h1 style="font-size:40px" id="lowstock">35</h1>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="box"
+          style="width:53%;height:55vh;display:flex;flex-direction: row;flex-wrap: wrap;overflow-y: scroll;"
+          id="invcompact">
+
+        </div>
+        <div class="box"
+          style="width:37%;height:55vh;display:flex;flex-direction: row;flex-wrap: wrap;overflow-y: scroll;align-content: flex-start"
+          id="ordcompact">
+
+        </div>
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;padding-top:3vh;overflow-y:hidden"
+      id="p2">
+      <button class="button1" id="updateinv"
+        style="width:200px;border-radius:5px;text-align: center;font-size:20px;margin-top:5vh;margin-bottom:3vh">
+        <p>Update Inventory</p>
+      </button>
+      <div id="inventoryitems" style="height:80vh;overflow-y: scroll;">
+
+      </div>
+
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:scroll"
+      id="p3">
+      <div id="orderitems">
+
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:hidden"
+      id="p4">
+      <input type="text" id="logsearch" placeholder="Search..."
+        style="width:250px;border-radius:5px;text-align: left;font-size:20px;padding:10px 5px; outline:none;margin-top:5vh;margin-bottom:3vh">
+      <div id="logitems">
+
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:hidden"
+      id="p6">
+      <div class="row">
+        <div
+          style="background-color: white;width:60%;height:800px;margin:10px;border-radius: 15px;display: flex;flex-direction: row;flex-wrap: wrap;overflow-y:scroll;box-sizing: border-box;padding:5px;align-items: center;justify-content: center"
+          id="guidelist">
+
+        </div>
+        <div
+          style="background-color: white;width:30%;height:800px;margin:10px;border-radius: 15px;padding:0;border: solid 1px gray;">
+          <div
+            style="background-color: #e0e0e0;height:750px;margin:0;box-sizing: border-box;padding:5px;overflow-y: scroll;border-radius: 15px 15px 0px 0px;"
+            id="chat">
+
+          </div>
+          <div class="row">
+            <textarea id="prompt"
+              style="height:50px;width:100%;margin:0;resize:none;border-radius:0px 0px 0px 15px;padding:5px;font-size:20px;outline:none;box-sizing: border-box;"></textarea>
+            <button id="send"
+              style="width:50px;height:50px;background-color: #363c5a;color:#f8f0df;border-radius:0px 0px 15px 0px"
+              class="button1"><span class="material-symbols-outlined">
+                chevron_right
+              </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:scroll"
+      id="p5">
+      <div style="margin:10px;background-color: white;padding:5px;width:60%;">
+        <h1 style="margin-left:15px;margin-top:15px;font-weight: 600;">Demand Predictions by <span
+            style="font-weight: 800;">MayAI</span></h1>
+        <p style="margin-left:15px;">Sales are expected to <strong>increase</strong></p>
+        <div style="width:600px;height:250px">
+          <canvas id="chart" style="width:600px;height:250px"></canvas>
+
+        </div>
+
+
+      </div>
+      <div class="row">
+        <div class="calendar"
+          style="width:640px;height:640px;background-color: white;margin:10px;border-radius: 5px;display:flex;align-items: center;justify-content: center;flex-direction: row;flex-wrap: wrap;padding:0;">
+          <h1 style="width:95%;border-bottom:1px solid black;text-align: center;font-size:40px;">May 2025</h1>
+        </div>
+        <div id="upcoming"
+          style="box-sizing: border-box;width:220px;height:340px;background-color: white;margin:10px;border-radius: 5px;display:flex;align-items: flex-start;justify-content: flex-start;flex-direction: column;flex-wrap: wrap;padding:10px;">
+
+        </div>
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:hidden;flex-direction: column;align-items: flex-start;justify-content: flex-start;"
+      id="p7">
+      <div style="min-height:45vh;display: flex;flex-direction: row;justify-content: space-evenly;">
+        <div
+          style="height:500px;border-radius:0px 0px 15px 15px;padding:0;border:solid 1px gray;max-width:500px;background-color: #fffcf1;margin:10px;display:flex;flex-direction: column;align-items: center;justify-content: center;">
+          <div style="height:450px;width:495px;margin:0;box-sizing: border-box;padding:5px;overflow-y: scroll;"
+            id="cchat">
+
+          </div>
+          <div style="display:flex;flex-direction: row;margin:0;padding:0;height:50px;">
+            <textarea id="cprompt"
+              style="height:50px;width:450px;margin:0;resize:none;border-radius:0px 0px 0px 15px;padding:5px;font-size:20px;outline:none;box-sizing: border-box;"></textarea>
+            <button id="csend"
+              style="width:50px;height:50px;background-color: #363c5a;color:#f8f0df;border-radius:0px 0px 15px 0px;margin:0;display:flex;align-items: center;justify-content: center;"><span
+                class="material-symbols-outlined">
+                chevron_right
+              </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pcontent"
+      style="width:calc(100% - 200px);height:95%;background-color:transparent;margin:0;display:none;overflow-y:hidden;flex-direction: column;align-items: flex-start;justify-content: flex-start;"
+      id="p8">
+      <div class="row">
+        <div id="map" style="height:600px;width:600px;"></div>
+        <div id="locations" style="width:400px;margin-left:10px;"></div>
+
+      </div>
+
+
+    </div>
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1IjoiaXBhZGRyZXNzZXNhcmVjb29sIiwiYSI6ImNremg3ejc4YjNxOGgycnBydzVkejN1ZnIifQ.dowjcNgmivNRA9W_a9b96g';
+      const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        projection: 'mercator',
+        zoom: 18,
+        center: [-73.65175368718096, 40.789498493602295]
+      });
+      new mapboxgl.Marker({ "color": "#fb83ff" }).setLngLat([-73.65175368718096, 40.789498493602295]).addTo(map);
+      map.on('load', () => {
+        map.resize()
+      });
+      map.on('idle', function () {
+        map.resize()
+      })
+      window.addEventListener('resize', () => {
+        map.resize();
+      });
+      $("#updateinv").click(function () {
+        $("#addform").css("display", "flex")
+      })
+      $(".alink").click(function () {
+        map.resize();
+        $("#" + $(this).attr("lto")).show()
+        for (id of ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8"]) {
+          if (id != $(this).attr("lto")) {
+            $("#" + id).hide()
+          }
+        }
+      })
+      $("#addformsubmit").click(function () {
+        const cid = $("#changeids").val()
+        const type = $("#changetype").val()
+        const quant = $("#changeq").val()
+        const index = inventory.findIndex(item => item.id == cid)
+        if (type == "add") {
+          inventory[index].stock += Number(quant)
+        } else {
+          inventory[index].stock -= Number(quant)
+        }
+        console.log(inventory[index])
+        fetch("http://localhost:3005/inventory/set/" + cid, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(
+            inventory[index]
+          )
+        }).then(function () {
+          window.location.reload();
+        })
+      })
+      $("#refresh").click(function () {
+        window.location.reload()
+      })
+      let cdays = [27, 28, 29, 30]
+      for (var item of cdays) {
+        $(".calendar").append(`<button class="day" disabled><p>${item}</p></button>`)
+      }
+      let msgHistory = [];
+      const UID = Math.random().toString(36).substr(2);
+
+      $("#csend").click(function () {
+        if ($("#cprompt").val() == "") {
+          return
+        }
+        $("#cchat").append(`
+        <div style="width:100%;margin-bottom:5px;padding:0;">
+          <div style="background-color:white;margin-left:auto;margin-right:0px;width:fit-content;border-radius:10px 0px 10px 10px;padding:5px 10px">
+            <p style="color:black">${$("#cprompt").val()}</p>
+          </div>  
+        </div>
+        `)
+        fetch("http://localhost:3005/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "message": $("#cprompt").val(),
+            "time": Date.now(),
+            "uid": UID
+          })
+        }).then(() => {
+          $("#prompt").val("");
+        })
+
+
+      })
+      let lastcheck = Date.now();
+
+      setInterval(function () {
+        fetch("http://localhost:3005/chat")
+          .then(response => response.json())
+          .then(json => {
+            for (var item of json) {
+              if (item.time > lastcheck && item.uid != UID) {
+                $("#cchat").append(`
+                <div style="width:100%;margin-bottom:5px;padding:0;">
+                  <div style="background-color:black;margin-left:0;margin-right:5px;width:fit-content;border-radius:0px 10px 10px 10px;padding:5px 10px">
+                    <p style="color:white">${item.message}</p>
+                  </div>  
+                </div>
+                `)
+              }
+            }
+            lastcheck = Date.now();
+          })
+      }, 1000)
+      $("#send").click(function () {
+        if ($("#prompt").val() == "") {
+          return
+        }
+        $("#chat").append(`
+            <div style="width:100%;margin-bottom:5px">
+              <div style="background-color:white;margin-left:auto;margin-right:0px;width:fit-content;border-radius:10px 0px 10px 10px;padding:10px">
+                <p style="color:black">${$("#prompt").val()}</p>
+              </div>  
+            </div>
+            `)
+        fetch("http://localhost:3005/ask", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "prompt": $("#prompt").val()
+          })
+        })
+          .then(response => response.json())
+          .then(json => {
+            $("#prompt").val("");
+            console.log(json)
+            $("#chat").append(`
+            <div style="width:100%;margin-bottom:5px">
+              <div style="background-color:black;margin-left:0;margin-right:5px;width:fit-content;border-radius:0px 10px 10px 10px;padding:10px">
+                <p style="color:white">${json.response}</p>
+              </div>  
+            </div>
+            `)
+          })
+
+      })
+      cdays = [];
+      let events = {
+        "31": ["Shipment of carnations (42)"],
+        "28": ["Shipment of sunflowers (25)"],
+        "27": ["Shipment of tulips (80)"],
+        "19": ["Shipment of roses (50)"],
+        "13": ["Shipment of daisies (50)"],
+        "11": ["Mother's Day", "Shipment of carnations (42)"],
+        "7": ["Shipment of orchids (35)"],
+
+      }
+      for (let i = 1; i < 32; i++) {
+        cdays.push(i);
+      }
+      for (var uite of cdays) {
+        $(".calendar").append(`<button class="day${Object.keys(events).includes(String(uite)) ? " upblue" : " "}" id="day${uite}"><p>${uite}</p></button>`)
+        $("#day" + uite).click(function () {
+          let uiy = $(this).attr("id").replace("day", "")
+          $("#upcoming").html("<h1>5/" + uiy + "</h1><hr style='width:95%'>")
+          console.log(uiy)
+          if (Object.keys(events).includes(String(uiy))) {
+            for (let event of events[uiy]) {
+              $("#upcoming").append(`<div class="upitem"><p>${event}</p></div>`)
+            }
+          }
+        })
+      }
+      //Load inventory from the api - localhost:3005 
+      let logs = []
+      fetch("http://localhost:3005/logs")
+        .then(response => response.json())
+        .then(data => {
+          logs = data;
+          updateLogs();
+        })
+      let inventory = []
+      fetch("http://localhost:3005/inventory")
+        .then(response => response.json())
+        .then(data => {
+          inventory = data;
+          console.log(inventory)
+          updateInventory();
+        })
+      let orders = []
+      let odata = [522, 495, 481, 435, 379
+        , 381, 389, 411, 441, 491, 519, 566, 552, 541, 502
+        , 451, 414, 387, 392, 385, 431, 489, 511, 532];
+      fetch("http://localhost:5000/fit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ values: odata })
+      })
+        .then(response => response.json())
+        .then(json => {
+          console.log(json)
+          const data = {
+            labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', "May", "Jun", "Jul", "Aug", "Sep"],
+            datasets: [{
+              label: 'Monthly Sales',
+              data: odata,
+              fill: true,
+              borderColor: '#3cc98a',
+              tension: 0.3
+            }, {
+              label: 'Predicted Sales',
+              data: json["values"],
+              fill: true,
+              borderColor: '#5c70d1',
+              tension: 0.3
+            }]
+          };
+          new Chart(document.getElementById("chart"), {
+            type: "line",
+            data: data,
+            options: {
+              scales: {
+                y: {
+                  ticks: {
+                    color: 'white' // Change y-axis label color to red
+                  }
+                }
+              },
+              elements: {
+                point: {
+                  radius: 0,
+                  hitRadius: 10,
+                }
+              }
+            }
+          })
+        })
+      //populate inventory
+      function updateInventory() {
+        let inventoryitems = ""
+        let tota1 = 0;
+        for (item of inventory) {
+          $("#changeids").append(`<option value="${item.id}">${item.name}</option>`)
+          inventoryitems += `<div class="invitem"><img style="width:80px;height:60px;object-fit:cover" src="${item.imageUrl}"><p style="font-size:37px;margin-left:10px;font-weight:700">${item.name}</p><p style="font-size:25px;margin-left:auto;margin-right:10px">$${item.price}</p><p style="font-size:25px;margin-left:10px;margin-right:10px;font-weight:600">x</p><p style="font-size:25px;margin-left:10px;margin-right:10px;">${item.stock}</p></div>`
+          $("#invcompact").append(`
+        <div style="height:100px;width:150px;${(item.stock < 15) ? "border: 2px solid orange;" : ""}background-color:#fffaef;margin:5px;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center"><p style="text-align:center;font-size:23px;font-weight:800">${item.name}</p><p>${item.stock}</p></div>`)
+          $("#guidelist").append(`
+          <div class="guideitem" id="guide${item.id}" style="height:200px;width:170px;border:solid 1px black;border-radius:6px;margin:5px;display:flex;flex-direction:column;align-items:center;justify-content:center"><img src="${item.imageUrl}" style="width:160px;height:140px;object-fit:cover"><p style="text-align:center;font-size:28px;font-weight:800">${item.name}</p></div>`)
+          const itedata = item
+
+          tota1 += item.stock
+          $(`#guide${itedata.id}`).on("click", function () {
+            $("#pimg").attr("src", itedata.imageUrl)
+            let content = `
+            <h1>${itedata.name}</h1>
+            <p><span style="font-weight:700">Light: </span>${itedata.care.light}<br>
+            <span style="font-weight:700">Water: </span>${itedata.care.water}<br>
+            <span style="font-weight:700">Soil: </span>${itedata.care.soil}<br>
+            <span style="font-weight:700">Temperature: </span>${itedata.care.temperature}<br>
+            <span style="font-weight:700">Humidity: </span>${itedata.care.humidity}<br>
+            <span style="font-weight:700">Fertilizer: </span>${itedata.care.fertilizer}<br>
+            <span style="font-weight:700">Pruning: </span>${itedata.care.pruning}<br>
+            <span style="font-weight:700">Common Pests: </span>${itedata.care.commonPests.join(", ")}<br></p>`;
+            $("#pcontent").html(content)
+            $("#popup").css("display", "flex")
+          })
+        }
+        $("#invsize").html(tota1)
+
+        $("#inventoryitems").html(inventoryitems)
+
+      }
+      $("#logsearch").on("input", function () {
+        $("#logitems").html("")
+        updateLogs();
+
+      })
+      $("#close").click(function () {
+        $("#popup").css("display", "none")
+      })
+      function updateLogs() {
+        let logitems = ""
+        for (item of logs) {
+          if (item.message.includes($("#logsearch").val())) {
+            logitems += `<div class="invitem" style="width:700px;height:70px;"><span class="material-symbols-outlined">
+info
+</span><p style="font-size:20px;margin-left:10px;font-weight:700">${item.message}</p></div>`
+          }
+
+        }
+        $("#logitems").html(logitems)
+
+      }
+      fetch("http://localhost:3005/orders")
+        .then(response => response.json())
+        .then(data => {
+          orders = data;
+          updateOrders();
+        });
+
+
+      function updateOrders() {
+        let orderHTML = "";
+        for (let order of orders) {
+          new mapboxgl.Marker({ "color": "#f8efb6" }).setLngLat([order["coord"][0], order["coord"][1]]).addTo(map);
+          const oid = order
+          $("#locations").append(`
+          <div class="location" id="loc${order.id}" style="background-color:white;width:400px;display:flex;flex-direction:row;padding:7px;border-radius:5px;margin-bottom:10px;">
+            <div>
+              <h1 style="font-size:28px">${order.cname}</h1>
+              <p style="font-size:15px">${order.cemail}</p>
+              <p style="font-size:15px">${order.cphone}</p>
+              </div>
+              <div style="margin-left:auto;margin-right:5px">
+                <div class="row" style="align-items:center;justify-content:center;margin-right:3px;">
+                  <span class="material-symbols-outlined" style="font-size:23px">
+                  directions_car
+                  </span>
+              <p style="font-weight:900;font-size:30px">${Math.round(order.duration/ 60)} min</p>
+              </row>
+              </div>
+            </div>
+          `)
+          $("#loc" + oid.id).click(function() {
+            map.flyTo({
+              center: [oid["coord"][0], oid["coord"][1]],
+              essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+          })
+          orderHTML += `
+      <div class="box" id="box${order.id}" style="padding:20px;border-radius:10px;display:flex;flex-direction:row">
+        <div style="width:60%">
+
+        <h2 style="margin:0 0 10px 0;">${order.cname}</h2>
+        <p><strong>Email:</strong> ${order.cemail}</p>
+        <p><strong>Phone:</strong> ${order.cphone}</p>
+        <p><strong>Size:</strong> ${order.size}</p>
+        <p><strong>Request:</strong><br> ${order.desc}</p>
+        <p><strong>Order ID:</strong> ${order.id}</p>
+        </div>
+        <div style="margin-left:auto;margin-right:auto;width:350px;">
+          <p id="res${order.id}">Create arrangement recommendations with <span style="font-weight:700">MayAI</span></p>
+          <button class="button1" id='gen${order.id}'>Generate</button>
+        </div>
+        <button class="button1" id='del${order.id}'><span class="material-symbols-outlined">
+          close
+          </span></button>
+
+      </div>
+    `;
+
+
+        }
+        document.getElementById("orderitems").innerHTML = orderHTML;
+        for (let order of orders) {
+          $("#ordcompact").append(`
+        <div style="height:100px;width:100%;background-color:#fffaef;margin:5px;border-radius:5px;display:flex;flex-direction:column;align-items:flex-start;padding:5px;"><p style="text-align:left;font-size:23px;font-weight:800">${order.cname}</p><p>"${order.desc}"</p></div>`)
+
+          $("#del" + order.id).click(function () {
+            fetch("http://localhost:3005/orders/delete/" + order.id)
+            $("#box" + order.id).remove()
+          })
+          $("#gen" + order.id).click(function () {
+            fetch("http://localhost:3005/gen/" + order.id).then(response => response.json()).then(data => {
+              // $(this).hide()
+              let sum = {}
+              for (var item of data["flowers"]) {
+                if (Object.keys(sum).includes(item)) {
+                  sum[item] += 1
+                } else {
+                  sum[item] = 1
+                }
+              }
+              let ks = Object.keys(sum).sort(function (a, b) { return sum[a] - sum[b] })
+
+              let t = "<span style='font-weight:800'>MayAI</span> recommends this: <br><br>";
+              //sort the object sum by value
+              for (var item of ks) {
+                t += "<span style='font-weight:600'>" + inventory.find(x => x.id == item).name + "</span> x " + sum[item] + "<br>"
+              }
+              t += "in a <span style='font-weight:600'>" + data.arrangement + "</span> arrangement"
+              console.log(t)
+              $(`#res${order.id}`).html(t)
+            })
+          })
+        }
+        $("#ordercount").html(orders.length)
+        let val = 0;
+        for (item of inventory) {
+          val += item.price * item.stock
+        }
+        $("#invvalue").html("$" + val)
+        let lowstock = 0;
+        for (item of inventory) {
+          if (item.stock < 15) {
+            lowstock += 1
+          }
+        }
+        $("#lowstock").html(lowstock)
+      }
+
+
+
+
+    </script>
+</body>
+
+</html>
