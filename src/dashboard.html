@@ -346,7 +346,7 @@
           inventory[index].stock -= Number(quant)
         }
         console.log(inventory[index])
-        fetch("http://localhost:3005/inventory/set/" + cid, {
+        fetch("https://chlserver.wilburcoding.hackclub.app/inventory/set/" + cid, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -379,7 +379,7 @@
           </div>  
         </div>
         `)
-        fetch("http://localhost:3005/chat", {
+        fetch("https://chlserver.wilburcoding.hackclub.app/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -398,7 +398,7 @@
       let lastcheck = Date.now();
 
       setInterval(function () {
-        fetch("http://localhost:3005/chat")
+        fetch("https://chlserver.wilburcoding.hackclub.app/chat")
           .then(response => response.json())
           .then(json => {
             for (var item of json) {
@@ -426,7 +426,7 @@
               </div>  
             </div>
             `)
-        fetch("http://localhost:3005/ask", {
+        fetch("https://chlserver.wilburcoding.hackclub.app/ask", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -476,16 +476,16 @@
           }
         })
       }
-      //Load inventory from the api - localhost:3005 
+      //Load inventory from the api - chlserver.wilburcoding.hackclub.app 
       let logs = []
-      fetch("http://localhost:3005/logs")
+      fetch("https://chlserver.wilburcoding.hackclub.app/logs")
         .then(response => response.json())
         .then(data => {
           logs = data;
           updateLogs();
         })
       let inventory = []
-      fetch("http://localhost:3005/inventory")
+      fetch("https://chlserver.wilburcoding.hackclub.app/inventory")
         .then(response => response.json())
         .then(data => {
           inventory = data;
@@ -496,7 +496,7 @@
       let odata = [522, 495, 481, 435, 379
         , 381, 389, 411, 441, 491, 519, 566, 552, 541, 502
         , 451, 414, 387, 392, 385, 431, 489, 511, 532];
-      fetch("http://localhost:5000/fit", {
+      fetch("https://mltest.wilburcoding.hackclub.app/fit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -598,7 +598,7 @@ info
         $("#logitems").html(logitems)
 
       }
-      fetch("http://localhost:3005/orders")
+      fetch("https://chlserver.wilburcoding.hackclub.app/orders")
         .then(response => response.json())
         .then(data => {
           orders = data;
@@ -664,11 +664,11 @@ info
         <div style="height:100px;width:100%;background-color:#fffaef;margin:5px;border-radius:5px;display:flex;flex-direction:column;align-items:flex-start;padding:5px;"><p style="text-align:left;font-size:23px;font-weight:800">${order.cname}</p><p>"${order.desc}"</p></div>`)
 
           $("#del" + order.id).click(function () {
-            fetch("http://localhost:3005/orders/delete/" + order.id)
+            fetch("https://chlserver.wilburcoding.hackclub.app/orders/delete/" + order.id)
             $("#box" + order.id).remove()
           })
           $("#gen" + order.id).click(function () {
-            fetch("http://localhost:3005/gen/" + order.id).then(response => response.json()).then(data => {
+            fetch("https://chlserver.wilburcoding.hackclub.app/gen/" + order.id).then(response => response.json()).then(data => {
               // $(this).hide()
               let sum = {}
               for (var item of data["flowers"]) {

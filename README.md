@@ -5,7 +5,7 @@ An ai-powered management application for florists
   - Download this repository, the `chlorisserver` folder, as well as the `chlorissite`
     - This is the main desktop application, the server handles backend requests, and the site is a demo florist website with the application
   - First, inside the server folder
-    - Install `sklearn` and `flask` with `pip`
+    - Install `scikit-learn` and `flask` with `pip`
     - Run `npm install` to install dependencies
     - Start the machine learning model API with `python ml.py`
     - Start the AI (using Gemini API) using `node index.js`
