@@ -1,5 +1,5 @@
 # Chloris
-An ai-powered management application for florists
+An ai-powered management application for florists. The desktop application (this repository) is the actual management application and the demo florist site (wilburcoding/chlorissite) is a demo site that uses a server to connect to the desktop application. 
 
 ## How to install
   - Download this repository
